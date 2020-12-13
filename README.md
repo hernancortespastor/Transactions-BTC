@@ -163,6 +163,10 @@ Se añade Druid como nueva base de datos. Se requiere la siguiente URI.
 druid://<Public IPv4 address instancia Druid>:8888/druid/v2/sql
 ```
 
+* Imagen de Dashboard creado.
+
+![alt text](https://github.com/hernancortespastor/Transactions-BTC/blob/main/img/image.png)
+
 
 
 
