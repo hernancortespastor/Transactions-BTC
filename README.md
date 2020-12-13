@@ -136,6 +136,11 @@ Desde un navegador se accede a Druid en:
 
 Desde la interfaz gráfica de Druid se generan los diferentes Datasources cargando los datos desde los diferentes topics de Kafka generados en Spark.
 
+* Configuracion del esquema de uno de los datasource.
+![alt text](https://github.com/hernancortespastor/Transactions-BTC/blob/main/img/image(2).png)
+
+* Consultas disponibles una vez configurados los datasource.
+![alt text](https://github.com/hernancortespastor/Transactions-BTC/blob/main/img/image(1).png)
 
 ### 4. Superset.
 Se desplegará Superset desde una instancia EC2 de AWS. Se accede mediante SSH a la instacia y se realiza la instalación siguiendo los pasos de la web oficial.
