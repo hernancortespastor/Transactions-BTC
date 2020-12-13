@@ -4,6 +4,14 @@ Proyecto de final de Master de Arquitectura Big Data de Kschool.
 
 ## Esquema funcionamiento
 
+
+## Requisitos previos.
+Registro en AWS.
+Creación de bucket 'transactionsproject2020' en S3.
+Lanzamiento de instancia de EC2 desde donde se desplegará Kafka.
+Lanzamiento de instancia de EC2 desde donde se desplegará Apache Druid.
+Lanzamiento de instancia de EC2 desde donde se desplegará SuperSet.
+
 ## Instalación y despliegue.
 
 ### 1. Kafka.
@@ -53,13 +61,19 @@ Se crea un archivo JSON con la configuración correspondiente para posteriorment
 wget https://github.com/hernancortespastor/Transactions-BTC/blob/main/kafka%20connect/transactions-to-s3.json
 curl -s -X POST -H 'Content-Type: application/json' --data @transactions-to-s3.json http://localhost:8083/connectors
 ```
-Verificamos que está en estado 'RUNNING'
+Se verifique que está en estado 'RUNNING'
 
 ```
 curl localhost:8083/connectors/transactions-to-s3/status
 
 ```
-Comenzamos a volcar datos al topic 'transactions-raw'. Para ello se usa la siguiente aplicación.
+
+### 2. Web Socket.
+
+Para comenzar a enviar datos al topic 'transactions-raw' se ejecuta la siguiente aplicación.
+```
+https://github.com/hernancortespastor/WebSocketTransactionsBTC
+```
 
 
 
