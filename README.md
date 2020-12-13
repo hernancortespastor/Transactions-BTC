@@ -12,23 +12,23 @@ Se desplegará Kafka y Kafka Connect desde una instancia EC2 de AWS. Usaremos la
 wget https://packages.confluent.io/archive/5.5/confluent-5.5.0-2.12.tar.gz
 tar -xvzf confluent-5.5.0-2.12.tar.gz
 ```
-Modificar la configuración de Kafka para poder acceder desde fuera de la instancia.
+2. Modificar la configuración de Kafka para poder acceder desde fuera de la instancia.
 
 ```
 ./confluent-5.5.0/etc/kafka/server.properties 
 ```
-Modificar la siguiente linea con la IP publica de la instancia EC2.
+3. Modificar la siguiente linea con la IP publica de la instancia EC2.
 
 ```
  advertised.listeners=PLAINTEXT://<Public IPv4 DNS>:9092
 ```
 
-Arrancar todos los servicios de Confluent. 
+4. Arrancar todos los servicios de Confluent. 
 
 ```
 ./confluent-5.5.0/bin/confluent local start
 ```
-ResultadoÑ
+Resultado
 ```
 Starting kafka
 kafka is [UP]
@@ -42,23 +42,27 @@ Starting control-center
 control-center is [UP]
 ```
 
-Configuración de Kafka Connect para que transmita todos los datos que recibidos en un topic a un bucket de AWS S3. 
+5. Configuración de Kafka Connect para que transmita todos los datos que recibidos en un topic a un bucket de AWS S3. 
 Se configuran las claves de acceso de AWS.
 ```
 aws configure
 ```
-Se crea un archivo JSON con la configuración correspondiente para posteriormente descargarlo desde la instancia y desplegarlo. Se ha configurado el conector para que los datos del topic de Kafka 'Transactions-raw' se vuelquen en el bucket de S3 denominado 'transactionsproject2020'.
+6. Se crea un archivo JSON con la configuración correspondiente para posteriormente descargarlo desde la instancia y desplegarlo. Se ha configurado el conector para que los datos del topic de Kafka 'Transactions-raw' se vuelquen en el bucket de S3 denominado 'transactionsproject2020'.
 
 ```
 wget https://github.com/hernancortespastor/Transactions-BTC/blob/main/kafka%20connect/transactions-to-s3.json
 curl -s -X POST -H 'Content-Type: application/json' --data @transactions-to-s3.json http://localhost:8083/connectors
 ```
-Verificamos que está en estado 'RUNNING'
+7. Verificamos que está en estado 'RUNNING'
 
 ```
 curl localhost:8083/connectors/transactions-to-s3/status
 
 ```
+
+8. 
+
+
 
 
 
