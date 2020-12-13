@@ -7,10 +7,14 @@ Proyecto de final de Master de Arquitectura Big Data de Kschool.
 
 ## Requisitos previos.
 Registro en AWS.
+
 Creación de bucket 'transactionsproject2020' en S3.
-Lanzamiento de instancia de EC2 desde donde se desplegará Kafka.
-Lanzamiento de instancia de EC2 desde donde se desplegará Apache Druid.
-Lanzamiento de instancia de EC2 desde donde se desplegará SuperSet.
+
+Lanzamiento de instancia de EC2 Amazon Linux 2 desde donde se desplegará Kafka. 
+
+Lanzamiento de instancia de EC2 Amazon Linux 2 desde donde se desplegará Apache Druid.
+
+Lanzamiento de instancia de EC2 Amazon Linux 2 desde donde se desplegará SuperSet.
 
 ## Instalación y despliegue.
 
@@ -74,6 +78,56 @@ Para comenzar a enviar datos al topic 'transactions-raw' se ejecuta la siguiente
 ```
 https://github.com/hernancortespastor/WebSocketTransactionsBTC
 ```
+
+### 2. Spark.
+
+Descargar repositorio:
+```
+git clone https://github.com/hernancortespastor/Transactions-BTC
+```
+
+Abrir el proyecto  en Intellij seleccionando el fichero 'build.sbt' del repositorio descargado.
+
+Abrir 'Sbt Shell' de Intellij y ejecutar:
+```
+package
+```
+
+
+
+### 3. Druid.
+
+Se desplegará Apache Druid desde una instancia EC2 de AWS. Se accede mediante SSH a la instacia y se ejecutan las siguientes instrucciones.
+
+```
+wget https://ftp.cixug.es/apache/druid/0.20.0/apache-druid-0.20.0-bin.tar.gz
+tar -xzf apache-druid-0.20.0-bin.tar.gz
+apache-druid-0.20.0/bin/start-single-server-small
+
+```
+Desde un navegador se accede a Druid desde <Public IPv4 address instancia Druid>:8888
+Desde la interfaz gráfica de Druid se generan los diferentes Datasources cargando los datos desde los diferentes topics de Kafka generados en Spark.
+
+
+### 4. Superset.
+Se desplegará Superset desde una instancia EC2 de AWS. Se accede mediante SSH a la instacia y se realiza la instalación siguiendo los pasos de la web oficial.
+
+Una vez instalado se lanzará mediante la siguiente instrucción.
+```
+superset run -h 0.0.0.0 -p 8088 --with-threads --reload --debugger
+```
+
+Desde un navegador se accede a Druid desde <Public IPv4 address instancia Superset>:8088
+
+Se añade Druid como nueva base de datos. Se requiere la siguiente URI.
+
+```
+druid://<Public IPv4 address instancia Druid>:8888/druid/v2/sql
+```
+
+
+
+
 
 
 
