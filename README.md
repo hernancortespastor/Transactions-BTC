@@ -10,11 +10,11 @@ Registro en AWS.
 
 Creación de bucket 'transactionsproject2020' en S3.
 
-Lanzamiento de instancia de EC2 Amazon Linux 2 desde donde se desplegará Kafka. 
+Lanzamiento de instancia de EC2 Amazon Linux 2 desde donde se desplegará Kafka. Se configura la seguridad añadiendo 'Inbound rules' para el puerto TCP 9092 permitiendo el acceso desde otras instancias. 
 
-Lanzamiento de instancia de EC2 Amazon Linux 2 desde donde se desplegará Apache Druid.
+Lanzamiento de instancia de EC2 Amazon Linux 2 desde donde se desplegará Apache Druid. Se configura la seguridad añadiendo 'Inbound rules' para el puerto TCP 8888 permitiendo el acceso desde otras instancias. 
 
-Lanzamiento de instancia de EC2 Amazon Linux 2 desde donde se desplegará SuperSet.
+Lanzamiento de instancia de EC2 Amazon Linux 2 desde donde se desplegará SuperSet. Se configura la seguridad añadiendo 'Inbound rules' para el puerto TCP 8088 permitiendo el acceso desde otras instancias. 
 
 ## Instalación y despliegue.
 
