@@ -92,8 +92,30 @@ Abrir 'Sbt Shell' de Intellij y ejecutar:
 ```
 package
 ```
+Se genera un .jar que se lanzará en un cluster EMR. 
+Desde AWS creamos un cluster EMR con la configuración por defecto.
+
+![alt text](https://github.com/hernancortespastor/Transactions-BTC/blob/main/img/Selection_002.png)
 
 
+Desde EMR se lanzará el job del jar con la siguiente configuración.
+
+* Job Spark Structured Streaming
+
+```
+spark-submit --deploy-mode cluster
+--packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.6 
+--class SparkTransactionsMain s3://transactionsprojectjarfiles/sparktransactions_2.11-0.1.jar yarn <Public IPv4 Kafka>:9092
+
+```
+* Job Spark Batch
+
+```
+spark-submit --deploy-mode cluster
+--packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.6 
+--class SparkBatchTransactionsMain s3://transactionsprojectjarfiles/sparktransactions_2.11-0.1.jar yarn <Public IPv4 Kafka>:9092
+
+```
 
 ### 3. Druid.
 
