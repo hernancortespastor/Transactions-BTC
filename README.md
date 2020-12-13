@@ -4,7 +4,7 @@ Proyecto de final de Master de Arquitectura Big Data de Kschool.
 
 ## Arquitectura
 
-
+![alt text](https://github.com/hernancortespastor/Transactions-BTC/blob/main/Arquitectura.jpg)
 
 ## Requisitos previos.
 * Registro en AWS.
