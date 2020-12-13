@@ -5,6 +5,7 @@ import org.apache.spark.sql.types.TimestampType
 
 object TransactionsFuntions {
 
+  // Proccesing raw data
   def TxPreProcess (df: DataFrame): DataFrame = {
     df.filter(col("data.op") === "utx")
       .withColumn("timestamp",(col("data.x.time").cast(TimestampType)))
@@ -16,11 +17,13 @@ object TransactionsFuntions {
 
   }
 
+  //  Select and process columns
   def TxColumns (df: DataFrame): DataFrame = {
     df.select(col("timestamp"),col("hash"),col("size"))
 
   }
 
+  //  Select and process columns
   def TxColumnsInputs(df: DataFrame): DataFrame = {
     df.withColumn("explode_inputs", explode(col("inputs")))
       .withColumn("value", (col("explode_inputs.value")/100000000))
@@ -29,7 +32,7 @@ object TransactionsFuntions {
 
   }
 
-
+  //  Select and process columns
   def TxColumnsOutputs(df: DataFrame): DataFrame = {
     df.withColumn("explode_inputs", explode(col("outputs")))
       .withColumn("value", (col("explode_inputs.value")/100000000))
@@ -38,7 +41,7 @@ object TransactionsFuntions {
 
   }
 
-
+// Group Transactions by windows
   def GroupTxByMetrics (df: DataFrame, windowduration: String): DataFrame = {
     df.groupBy(window(col("timestamp"),windowduration))
       .agg(
@@ -48,7 +51,7 @@ object TransactionsFuntions {
       .sort(col(("window")))
 
   }
-
+  // Group Transactions by windows
   def GroupTxByMetrics (df: DataFrame, windowduration: String,slideduration :String): DataFrame = {
     df.groupBy(window(col("timestamp"),windowduration,slideduration))
       .agg(
@@ -58,6 +61,7 @@ object TransactionsFuntions {
       .sort(col(("window")))
 
   }
+  // Group Inputs-Outputs by windows
 
   def GroupByMetrics (df: DataFrame, windowduration: String): DataFrame = {
     df.groupBy(window(col("timestamp"),windowduration))
@@ -67,6 +71,7 @@ object TransactionsFuntions {
       .sort(col(("window")))
 
   }
+  // Group Inputs-Outputs by windows
 
   def GroupByMetrics (df: DataFrame, windowduration: String,slideduration :String): DataFrame = {
     df.groupBy(window(col("timestamp"),windowduration,slideduration))
@@ -77,6 +82,7 @@ object TransactionsFuntions {
 
   }
 
+  // Get Top Address
   def TopAddressAll (df: DataFrame): DataFrame = {
       df.groupBy(current_timestamp().as("current_time"),col("address"))
       .agg(
@@ -86,6 +92,7 @@ object TransactionsFuntions {
 
   }
 
+  // Get Top Transaction
 
   def TopTransactionOutValue (df: DataFrame): DataFrame = {
       df.groupBy(current_timestamp(),col("hash"))
@@ -96,6 +103,7 @@ object TransactionsFuntions {
 
   }
 
+  // Get Top Addres by window
 
   def TopAddress (df: DataFrame, windowduration: String): DataFrame = {
     val w1 = Window.partitionBy(col("window"))
@@ -109,6 +117,8 @@ object TransactionsFuntions {
       .orderBy(desc("window"),asc("rank"))
 
   }
+
+
   def WriteBatchToKafka (df: DataFrame, kafkaserver: String, topic:String) = {
     df.toJSON.alias("value")
       .write

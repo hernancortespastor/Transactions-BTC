@@ -20,7 +20,7 @@ import org.apache.spark.sql.streaming.Trigger
 
     val spark = SparkSession
       .builder()
-      .appName("Spark Structured Streaming Example")
+      .appName("SparkTransactionsMain")
       .master(master)
       .getOrCreate()
 
