@@ -28,6 +28,37 @@ Arrancar todos los servicios de Confluent.
 ```
 ./confluent-5.5.0/bin/confluent local start
 ```
+ResultadoÑ
+```
+Starting kafka
+kafka is [UP]
+Starting schema-registry
+schema-registry is [UP]
+Starting kafka-rest
+kafka-rest is [UP]
+Starting ksql-server
+ksql-server is [UP]
+Starting control-center
+control-center is [UP]
+```
+
+Configuración de Kafka Connect para que transmita todos los datos que recibidos en un topic a un bucket de AWS S3. 
+Se configuran las claves de acceso de AWS.
+```
+aws configure
+```
+Se crea un archivo JSON con la configuración correspondiente para posteriormente descargarlo desde la instancia y desplegarlo. Se ha configurado el conector para que los datos del topic de Kafka 'Transactions-raw' se vuelquen en el bucket de S3 denominado 'transactionsproject2020'.
+
+```
+wget https://github.com/hernancortespastor/Transactions-BTC/blob/main/kafka%20connect/transactions-to-s3.json
+curl -s -X POST -H 'Content-Type: application/json' --data @transactions-to-s3.json http://localhost:8083/connectors
+```
+Verificamos que está en estado 'RUNNING'
+
+```
+curl localhost:8083/connectors/transactions-to-s3/status
+
+```
 
 
 
